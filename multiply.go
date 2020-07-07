@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func Multiply(exp *Equation) {
+func Multiply(exp *Equation, random func() int) {
 	value := random()
 	exp.Right = multiplyInternal(exp.Right, value)
 	exp.Left = multiplyInternal(exp.Left, value)

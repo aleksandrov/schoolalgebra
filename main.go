@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-var ops = map[int]func(exp *Equation){
+var ops = map[int]func(exp *Equation, random func() int){
 	0: Add,
 	1: Multiply,
 }
@@ -23,7 +23,7 @@ func main() {
 		}
 		for i := 0; i < 5; i++ {
 			randomOp := ops[r1.Intn(len(ops))]
-			randomOp(e)
+			randomOp(e, random)
 		}
 
 		fmt.Println(e.String())

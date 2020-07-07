@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func Add(exp *Equation) {
+func Add(exp *Equation, random func() int) {
 	value := random()
 	exp.Right = addInternal(exp.Right, value)
 	exp.Left = addInternal(exp.Left, value)
@@ -43,10 +43,17 @@ func (a *AddConstantExpression) String() string {
 		return x
 	}
 
-	if a.Value >= 0 {
-		return fmt.Sprintf("%v + %v", a.Parent.String(), abs(a.Value))
+	var parentString string
+	if a.Parent == nil {
+		parentString = "NaN"
 	} else {
-		return fmt.Sprintf("%v - %v", a.Parent.String(), abs(a.Value))
+		parentString = a.Parent.String()
+	}
+
+	if a.Value >= 0 {
+		return fmt.Sprintf("%v + %v", parentString, abs(a.Value))
+	} else {
+		return fmt.Sprintf("%v - %v", parentString, abs(a.Value))
 	}
 
 }
